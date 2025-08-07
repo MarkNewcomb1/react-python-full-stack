@@ -26,5 +26,11 @@ def add_task():
     tasks.append(task)
     return jsonify(task), 201
 
+@app.route("/tasks/<int:task_id>", methods=["DELETE"])
+def delete_task(task_id):
+    global tasks
+    tasks = [task for task in tasks if task["id"] != task_id]
+    return jsonify({"message": f"Task {task_id} deleted"}), 200
+
 if __name__ == "__main__":
     app.run(debug=True)
